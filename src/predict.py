@@ -1,6 +1,6 @@
 import joblib
 
-from config import MODEL_PATH
+from src.config import MODEL_PATH
 
 def carregar_modelo():
     return joblib.load(MODEL_PATH)

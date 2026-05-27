@@ -1,5 +1,5 @@
 import pandas as pd
-from config import DATASET_PATH, PROCESSED_DATASET_PATH
+from src.config import DATASET_PATH, PROCESSED_DATASET_PATH
 
 def mapear_sentimento(score): 
     try:
@@ -19,12 +19,24 @@ def mapear_sentimento(score):
     
 def preparar_dados():
     df = pd.read_csv(DATASET_PATH)
+    
+    print(f"Total original: {len(df)}")
+    
     df["texto"] = (
         df["review_comment_title"].fillna("")+ " " +
         df["review_comment_message"].fillna("")
     ).str.strip()
     
+    print("\nQuantidade de textos vazios após concatenação: ")
+    print((df["texto"] == "").sum())
+    
+    print("\nAmostra de concatenação:")
+    print(df[["review_comment_title", "review_comment_message", "texto"]].head(20))
+    
     df = df[df["texto"] != ""]
+    
+    print("\nQuantidade de textos vazios depois da remoção")
+    print((df["texto"]== "").sum())
     
     df["sentimento"] = df["review_score"].apply(mapear_sentimento)
     df = df[df["sentimento"] != "invalido"]

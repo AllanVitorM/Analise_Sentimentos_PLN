@@ -2,7 +2,9 @@ import joblib
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-from config import MODEL_PATH
+from src.config import MODEL_PATH
+from src.openai_emotion_service import analisar_emocoes
+
 
 app = FastAPI(title="API para Análise de sentimentos de E-commerce")
 
@@ -20,17 +22,23 @@ def home():
 @app.post("/predict")
 def predict(review: ReviewRequest):
     sentimento = modelo.predict([review.texto])[0]
-    probabilidades = modelo.predict_prob([review.texto])[0]
+    probabilidades = modelo.predict_proba([review.texto])[0]
     
     classes = modelo.classes_
     confiancas = dict(zip(classes, probabilidades))
     
+    aspectos = analisar_emocoes(review.texto)
+
+    try:
+        aspectos = analisar_emocoes(review.texto)
+        aspectos_detectados = aspectos.get("aspectos_detectados", [])
+    except Exception:
+        aspectos_detectados = []
+
     return {
         "texto": review.texto,
         "sentimento": sentimento,
-        "confianca": round(max(probabilidades), 4),
-        "probabilidades": {
-            classe: round(float(prob), 4)
-            for classe, prob in confiancas.items()
-        }
+        "confianca": round(float(max(confiancas.values())), 4),
+
+        "aspectos_detectados": aspectos_detectados
     }
