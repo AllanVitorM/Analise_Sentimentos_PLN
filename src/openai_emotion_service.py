@@ -1,13 +1,16 @@
-import json 
+import json
 from openai import OpenAI
 
 from src.config import OPEN_API_KEY
 
-client = OpenAI(api_key=OPEN_API_KEY)
+client = OpenAI(api_key=OPEN_API_KEY) if OPEN_API_KEY else None
 
 def analisar_emocoes(texto:str) -> dict:
+    if client is None:
+        return {"aspectos_detectados": []}
+
     prompt = f"""
-        Analise o texto abaixo em português brasileiro.PermissionError
+        Analise o texto abaixo em português brasileiro.
         
         Retorne apenas um JSON válido com os valores inteiros de 0 a 100 para cada emoção/aspecto.
         Os valores não precisam somar 100, pois cada aspecto representa intensidade independente.
@@ -20,7 +23,7 @@ def analisar_emocoes(texto:str) -> dict:
     {{
         "aspectos_detectados": [{{
             "nome": "frustração",
-            "intensidade": 85,
+            "intensidade": 85
         }}]
     }}
     

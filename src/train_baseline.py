@@ -7,7 +7,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, accuracy_score
 
-from config import PROCESSED_DATASET_PATH, MODEL_PATH
+from src.config import PROCESSED_DATASET_PATH, MODEL_PATH
 
 def treinar_modelo():
     df = pd.read_csv(PROCESSED_DATASET_PATH)
