@@ -15,3 +15,6 @@ PROCESSED_DATASET_PATH = DATA_DIR / "reviews_tratados.csv"
 MODEL_PATH = MODELS_DIR / "sentiment_model.pkl"
 
 OPEN_API_KEY = os.getenv("OPENAI_API_KEY")
+
+MONGO_URI = os.getenv("MONGO_URI")
+MONGO_DB_NAME= os.getenv("MONGO_DB_NAME", "Cluster0")
