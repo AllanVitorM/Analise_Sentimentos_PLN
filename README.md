@@ -9,19 +9,19 @@ Uma aplicação moderna desenvolvida com Python, FastAPI, Pandas e mongoDB para 
 O SentimentAI foi criado para auxiliar na identificação e interpretação de emoções expressas em conteúdos textuais, possibilitando a construção de soluções voltadas para:
 
 •
-Atendimento ao cliente: Compreender o sentimento dos clientes em interações e feedbacks.
+**Atendimento ao cliente:** Compreender o sentimento dos clientes em interações e feedbacks.
 
 •
-Monitoramento de redes sociais: Acompanhar a percepção da marca e tendências de opinião pública.
+**Monitoramento de redes sociais**: Acompanhar a percepção da marca e tendências de opinião pública.
 
 •
-Pesquisa de satisfação: Avaliar o nível de satisfação de usuários e consumidores.
+**Pesquisa de satisfação:** Avaliar o nível de satisfação de usuários e consumidores.
 
 •
-Experiência do usuário (UX): Obter insights sobre a experiência do usuário com produtos e serviços.
+**Experiência do usuário (UX):** Obter insights sobre a experiência do usuário com produtos e serviços.
 
 •
-Análise de feedbacks: Processar e categorizar grandes volumes de feedback.
+**Análise de feedbacks:** Processar e categorizar grandes volumes de feedback.
 
 •
 Estudos acadêmicos: Apoiar pesquisas em Inteligência Artificial e Processamento de Linguagem Natural (NLP).
@@ -96,49 +96,49 @@ Métricas associadas
 
 # 🛠️ Tecnologias
 
-## Frontend
+## Frontend [Link](https://github.com/RicardoTompson/frontend-Analise-Sentimentos)
 
 •
-Next.js: Framework React para aplicações web.
+**Next.js:** Framework React para aplicações web.
 
 •
-TypeScript: Linguagem de programação que adiciona tipagem estática ao JavaScript.
+**TypeScript:** Linguagem de programação que adiciona tipagem estática ao JavaScript.
 
 •
-Recharts: Biblioteca de gráficos para React.
+**Recharts:** Biblioteca de gráficos para React.
 
 •
-Tailwind CSS: Framework CSS utilitário para estilização rápida.
+**Tailwind CSS:** Framework CSS utilitário para estilização rápida.
 
 •
-Shadcn/UI: Componentes de UI construídos com Radix UI e Tailwind CSS.
+**Shadcn/UI:** Componentes de UI construídos com Radix UI e Tailwind CSS.
 
 •
-Radix UI: Primitivas de UI sem estilo para construir sistemas de design acessíveis.
+**Radix UI:** Primitivas de UI sem estilo para construir sistemas de design acessíveis.
 
 •
-Lucide React: Biblioteca de ícones para React.
+**Lucide React:** Biblioteca de ícones para React.
 
 ---
 
 ## Backend
 
 •
-Python: Linguagem de programação principal.
+**Python:** Linguagem de programação principal.
 
 •
-FastAPI: Framework web moderno e rápido para construir APIs.
+**FastAPI:** Framework web moderno e rápido para construir APIs.
 
 •
-Pandas: Biblioteca para análise e manipulação de dados.
+**Pandas:** Biblioteca para análise e manipulação de dados.
 
 •
-OpenAI: Utilizado para aspectos emocionais e processamento de linguagem natural.
+**OpenAI:** Utilizado para aspectos emocionais e processamento de linguagem natural.
 
-Banco de Dados
+## Banco de Dados
 
 •
-MongoDB (Opcional): Um banco de dados NoSQL, flexível e escalável, pode ser utilizado para persistência dos dados de análise e histórico.
+**MongoDB:** Um banco de dados NoSQL, flexível e escalável, pode ser utilizado para persistência dos dados de análise e histórico.
 
 ---
 # 📂 Estrutura do Projeto
@@ -229,7 +229,7 @@ sentiment-ai/
 # ⚙️ Instalação e Uso
 ---
 
-## 1. Pré-requisitos
+### 1. Pré-requisitos
 
 Antes de iniciar, é necessário ter instalado:
 
@@ -250,18 +250,18 @@ Um editor de código, como VSCode
 
 ---
 
-## 2. Clonar o projeto
+### 2. Clonar o projeto
 
 Clone o repositório e acesse a pasta do projeto:
 
 ```bash
-git clone <url-do-repositorio>
-cd sentiment-ai
+git clone https://github.com/AllanVitorM/Analise_Sentimentos_PLN
+cd Analise_Sentimentos_PLN
 ```
 
 ---
 
-## 3. Criar ambiente virtual
+### 3. Criar ambiente virtual
 
 No Windows:
 
@@ -279,7 +279,7 @@ source .venv/bin/activate
 
 ---
 
-## 4. Instalar dependências
+### 4. Instalar dependências
 
 Com o ambiente virtual ativado, instale as dependências:
 
@@ -295,7 +295,7 @@ pip install pandas numpy scikit-learn joblib fastapi uvicorn openai python-doten
 
 ---
 
-## 5. Configurar variáveis de ambiente
+### 5. Configurar variáveis de ambiente
 
 Crie um arquivo chamado `.env` na raiz do projeto.
 
@@ -327,7 +327,7 @@ data/*.csv
 
 ---
 
-## 6. Adicionar o dataset
+### 6. Adicionar o dataset
 
 O projeto utiliza o dataset de avaliações da Olist.
 
@@ -352,7 +352,7 @@ data/
 
 ---
 
-## 7. Pré-processar os dados
+### 7. Pré-processar os dados
 
 Execute o script de pré-processamento:
 
@@ -385,7 +385,7 @@ data/reviews_tratados.csv
 
 ---
 
-## 8. Treinar o modelo
+### 8. Treinar o modelo
 
 Após o pré-processamento, execute o treinamento do modelo:
 
@@ -403,7 +403,7 @@ models/sentiment_model.pkl
 
 ---
 
-## 9. Testar predição pelo terminal
+### 9. Testar predição pelo terminal
 
 Para testar o modelo diretamente pelo terminal, execute:
 
@@ -423,7 +423,7 @@ O sistema retornará o sentimento previsto e as probabilidades associadas às cl
 
 ---
 
-## 10. Executar a API
+### 10. Executar a API
 
 Para iniciar a API com FastAPI, execute:
 
@@ -445,7 +445,7 @@ http://127.0.0.1:8000/docs
 
 ---
 
-## 11. Testar o endpoint de análise
+### 11. Testar o endpoint de análise
 
 Endpoint:
 
@@ -494,7 +494,7 @@ Exemplo de resposta:
 
 ---
 
-## 12. Consultar histórico de análises
+### 12. Consultar histórico de análises
 
 Caso o MongoDB esteja configurado corretamente, é possível consultar as análises salvas:
 
@@ -517,7 +517,7 @@ pytest -v
 
 ## 🤝 Contribuição
 
-O projeto **Sentimental** foi desenvolvido de forma colaborativa por uma equipe multidisciplinar com foco em Inteligência Artificial, Processamento de Linguagem Natural (NLP), Desenvolvimento Web e Visualização de Dados.
+O projeto **SentimentAI** foi desenvolvido de forma colaborativa por uma equipe multidisciplinar com foco em Inteligência Artificial, Processamento de Linguagem Natural (NLP), Desenvolvimento Web e Visualização de Dados.
 
 ## Integrantes
 
