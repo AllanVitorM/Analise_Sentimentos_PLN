@@ -1,6 +1,6 @@
 # SentimentAI — Plataforma Inteligente de Análise de Sentimentos
 
-Uma aplicação moderna desenvolvida com Next.js, TypeScript e Recharts para análise, monitoramento e visualização de sentimentos em textos. O sistema permite que usuários submetam textos para processamento e obtenham insights emocionais através de dashboards interativos, métricas estatísticas e histórico de análises.
+Uma aplicação moderna desenvolvida com Python, FastAPI, Pandas e mongoDB para análise, monitoramento e visualização de sentimentos em textos. O sistema permite que usuários submetam textos para processamento e obtenham insights emocionais através de dashboards interativos, métricas estatísticas e histórico de análises.
 
 ---
 
@@ -161,11 +161,188 @@ tests/: Contém os testes unitários e de integração.
 
 # ⚙️ Instalação e Uso
 
-Instruções detalhadas sobre como configurar e executar o projeto localmente serão adicionadas aqui.
+1. Pré-requisitos
+
+Antes de iniciar, é necessário ter instalado:
+
+•
+Python 3.10 ou superior
+
+•
+Git
+
+•
+MongoDB Atlas ou MongoDB local
+
+•
+Uma chave de API da OpenAI
+
+•
+Um editor de código, como VSCode
+
+2. Criar ambiente virtual
+
+No Windows:
+
+python -m venv .venv
+.venv\Scripts\activate
+
+No Linux ou Mac:
+
+python3 -m venv .venv
+source .venv/bin/activate
+3. Instalar dependências
+
+Com o ambiente virtual ativado, instale as dependências:
+
+pip install -r requirements.txt
+
+Caso o arquivo requirements.txt ainda não esteja configurado, instale manualmente as principais bibliotecas:
+
+pip install pandas numpy scikit-learn joblib fastapi uvicorn openai python-dotenv pymongo pytest httpx
+4. Configurar variáveis de ambiente
+
+Crie um arquivo chamado .env na raiz do projeto.
+
+Exemplo:
+
+OPENAI_API_KEY=sua_chave_da_openai
+MONGO_URI=sua_string_de_conexao_mongodb
+MONGO_DB_NAME=sentiment_analysis_db
+
+A variável OPENAI_API_KEY é utilizada para a análise de aspectos emocionais do texto.
+
+A variável MONGO_URI é utilizada para conectar a API ao MongoDB e salvar o histórico das análises.
+
+A variável MONGO_DB_NAME define o nome do banco de dados utilizado pela aplicação.
+
+Importante: o arquivo .env não deve ser enviado para o GitHub.
+
+Recomenda-se adicionar ao .gitignore:
+
+.env
+.venv/
+__pycache__/
+models/*.pkl
+data/*.csv
+5. Adicionar o dataset
+
+O projeto utiliza o dataset de avaliações da Olist.
+
+Adicione o arquivo:
+
+olist_order_reviews_dataset.csv
+
+dentro da pasta:
+
+data/
+
+A estrutura esperada é:
+
+data/
+└── olist_order_reviews_dataset.csv
+6. Pré-processar os dados
+
+Execute o script de pré-processamento:
+
+python -m src.preprocessing
+
+Essa etapa realiza:
+
+•
+Leitura do dataset original;
+
+•
+Concatenação do título e comentário da avaliação;
+
+•
+Remoção de textos vazios;
+
+•
+Criação dos rótulos de sentimento com base na nota da avaliação;
+
+•
+Geração do arquivo tratado.
+
+Após a execução, será criado o arquivo:
+
+data/reviews_tratados.csv
+7. Treinar o modelo
+
+Após o pré-processamento, execute o treinamento do modelo:
+
+python -m src.train_baseline
+
+Essa etapa treina um modelo de classificação de sentimentos utilizando TF-IDF e Regressão Logística.
+
+O modelo treinado será salvo em:
+
+models/sentiment_model.pkl
+8. Executar a API
+
+Para iniciar a API com FastAPI, execute:
+
+uvicorn src.api:app --reload
+
+A API ficará disponível em:
+
+http://127.0.0.1:8000
+
+A documentação interativa pode ser acessada em:
+
+http://127.0.0.1:8000/docs
+9. Testar o endpoint de análise
+
+Endpoint:
+
+POST http://127.0.0.1:8000/predict
+
+Exemplo de body JSON:
+
+{
+  "texto": "Produto chegou atrasado e veio com defeito"
+}
+
+Também é possível enviar o campo como text:
+
+{
+  "text": "Produto chegou atrasado e veio com defeito"
+}
+
+Exemplo de resposta:
+
+{
+  "texto": "Produto chegou atrasado e veio com defeito",
+  "sentimento": "negativo",
+  "confianca": 0.87,
+  "probabilidades": {
+    "negativo": 0.87,
+    "neutro": 0.08,
+    "positivo": 0.05
+  },
+  "aspectos_detectados": [
+    {
+      "nome": "frustração",
+      "intensidade": 80,
+      "evidencia": "chegou atrasado e veio com defeito"
+    }
+  ],
+  "created_at": "2026-05-29T16:30:19.896693+00:00"
+}
 
 ## 🤝 Contribuição
 
-Diretrizes para contribuição serão adicionadas aqui.
+O projeto **Sentimental** foi desenvolvido de forma colaborativa por uma equipe multidisciplinar com foco em Inteligência Artificial, Processamento de Linguagem Natural (NLP), Desenvolvimento Web e Visualização de Dados.
+
+## Integrantes
+
+* Allan Marques
+* Emerson Costa
+* Felipe Pimentel
+* Gabriel Martins
+* Heloisa Costa
+* Ricardo Tompson
+* Walison Brandão
 
 ## 📄 Licença
 
