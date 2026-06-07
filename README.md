@@ -143,25 +143,93 @@ MongoDB (Opcional): Um banco de dados NoSQL, flexível e escalável, pode ser ut
 ---
 # 📂 Estrutura do Projeto
 
-O projeto está organizado nas seguintes principais pastas:
+```txt
+sentiment-ai/
+│
+├── data/
+│   ├── olist_order_reviews_dataset.csv
+│   └── reviews_tratados.csv
+│
+├── models/
+│   └── sentiment_model.pkl
+│
+├── src/
+│   ├── __init__.py
+│   ├── api.py
+│   ├── config.py
+│   ├── database.py
+│   ├── openai_emotion_service.py
+│   ├── predict.py
+│   ├── preprocessing.py
+│   └── train_baseline.py
+│
+├── tests/
+│   ├── test_api.py
+│   └── test_api_mock.py
+│
+├── .env
+├── .gitignore
+├── pytest.ini
+├── requirements.txt
+└── README.md
+```
+
+## Descrição das pastas e arquivos
 
 •
-data/: Contém dados ou arquivos relacionados a dados.
+`data/`: armazena o dataset original e o dataset tratado após o pré-processamento.
 
 •
-models/: Define os modelos de dados ou modelos de Machine Learning.
+`models/`: armazena o modelo treinado utilizado pela API para realizar as predições.
 
 •
-src/: Código fonte principal da aplicação.
+`src/`: contém o código principal do backend, incluindo API, pré-processamento, treinamento, predição, conexão com banco de dados e integração com OpenAI.
 
 •
-tests/: Contém os testes unitários e de integração.
+`tests/`: contém os testes automatizados da API, incluindo testes de rota, validação e uso de mocks.
 
----
+•
+`.env`: armazena variáveis de ambiente, como chave da OpenAI e string de conexão com o MongoDB.
+
+•
+`.gitignore`: define arquivos e pastas que não devem ser enviados para o repositório.
+
+•
+`pytest.ini`: configura o ambiente de testes com Pytest.
+
+•
+`requirements.txt`: lista as dependências necessárias para executar o projeto.
+
+•
+`README.md`: documentação principal do projeto.
+
+## Principais arquivos do backend
+
+•
+`api.py`: define as rotas da API, incluindo `/predict` e `/analyses`.
+
+•
+`config.py`: centraliza caminhos do projeto e variáveis de ambiente.
+
+•
+`database.py`: configura a conexão com o MongoDB.
+
+•
+`openai_emotion_service.py`: realiza a análise de aspectos emocionais usando a API da OpenAI.
+
+•
+`predict.py`: carrega o modelo treinado e executa predições pelo terminal.
+
+•
+`preprocessing.py`: realiza a limpeza dos dados e gera o dataset tratado.
+
+•
+`train_baseline.py`: treina o modelo baseline com TF-IDF e Regressão Logística.
 
 # ⚙️ Instalação e Uso
+---
 
-1. Pré-requisitos
+## 1. Pré-requisitos
 
 Antes de iniciar, é necessário ter instalado:
 
@@ -180,72 +248,117 @@ Uma chave de API da OpenAI
 •
 Um editor de código, como VSCode
 
-2. Criar ambiente virtual
+---
+
+## 2. Clonar o projeto
+
+Clone o repositório e acesse a pasta do projeto:
+
+```bash
+git clone <url-do-repositorio>
+cd sentiment-ai
+```
+
+---
+
+## 3. Criar ambiente virtual
 
 No Windows:
 
+```bash
 python -m venv .venv
 .venv\Scripts\activate
+```
 
 No Linux ou Mac:
 
+```bash
 python3 -m venv .venv
 source .venv/bin/activate
-3. Instalar dependências
+```
+
+---
+
+## 4. Instalar dependências
 
 Com o ambiente virtual ativado, instale as dependências:
 
+```bash
 pip install -r requirements.txt
+```
 
-Caso o arquivo requirements.txt ainda não esteja configurado, instale manualmente as principais bibliotecas:
+Caso o arquivo `requirements.txt` ainda não esteja configurado, instale manualmente as principais bibliotecas:
 
+```bash
 pip install pandas numpy scikit-learn joblib fastapi uvicorn openai python-dotenv pymongo pytest httpx
-4. Configurar variáveis de ambiente
+```
 
-Crie um arquivo chamado .env na raiz do projeto.
+---
+
+## 5. Configurar variáveis de ambiente
+
+Crie um arquivo chamado `.env` na raiz do projeto.
 
 Exemplo:
 
+```env
 OPENAI_API_KEY=sua_chave_da_openai
 MONGO_URI=sua_string_de_conexao_mongodb
 MONGO_DB_NAME=sentiment_analysis_db
+```
 
-A variável OPENAI_API_KEY é utilizada para a análise de aspectos emocionais do texto.
+A variável `OPENAI_API_KEY` é utilizada para a análise de aspectos emocionais do texto.
 
-A variável MONGO_URI é utilizada para conectar a API ao MongoDB e salvar o histórico das análises.
+A variável `MONGO_URI` é utilizada para conectar a API ao MongoDB e salvar o histórico das análises.
 
-A variável MONGO_DB_NAME define o nome do banco de dados utilizado pela aplicação.
+A variável `MONGO_DB_NAME` define o nome do banco de dados utilizado pela aplicação.
 
-Importante: o arquivo .env não deve ser enviado para o GitHub.
+Importante: o arquivo `.env` não deve ser enviado para o GitHub.
 
-Recomenda-se adicionar ao .gitignore:
+Recomenda-se adicionar ao `.gitignore`:
 
+```gitignore
 .env
 .venv/
 __pycache__/
 models/*.pkl
 data/*.csv
-5. Adicionar o dataset
+```
+
+---
+
+## 6. Adicionar o dataset
 
 O projeto utiliza o dataset de avaliações da Olist.
 
 Adicione o arquivo:
 
+```txt
 olist_order_reviews_dataset.csv
+```
 
 dentro da pasta:
 
+```txt
 data/
+```
 
 A estrutura esperada é:
 
+```txt
 data/
 └── olist_order_reviews_dataset.csv
-6. Pré-processar os dados
+```
+
+---
+
+## 7. Pré-processar os dados
 
 Execute o script de pré-processamento:
 
+```bash
 python -m src.preprocessing
+```
 
 Essa etapa realiza:
 
@@ -266,51 +379,99 @@ Geração do arquivo tratado.
 
 Após a execução, será criado o arquivo:
 
+```txt
 data/reviews_tratados.csv
-7. Treinar o modelo
+```
+
+---
+
+## 8. Treinar o modelo
 
 Após o pré-processamento, execute o treinamento do modelo:
 
+```bash
 python -m src.train_baseline
+```
 
 Essa etapa treina um modelo de classificação de sentimentos utilizando TF-IDF e Regressão Logística.
 
 O modelo treinado será salvo em:
 
+```txt
 models/sentiment_model.pkl
-8. Executar a API
+```
+
+---
+
+## 9. Testar predição pelo terminal
+
+Para testar o modelo diretamente pelo terminal, execute:
+
+```bash
+python -m src.predict
+```
+
+Digite uma avaliação quando solicitado.
+
+Exemplo:
+
+```txt
+Produto chegou atrasado e veio com defeito
+```
+
+O sistema retornará o sentimento previsto e as probabilidades associadas às classes.
+
+---
+
+## 10. Executar a API
 
 Para iniciar a API com FastAPI, execute:
 
+```bash
 uvicorn src.api:app --reload
+```
 
 A API ficará disponível em:
 
+```txt
 http://127.0.0.1:8000
+```
 
 A documentação interativa pode ser acessada em:
 
+```txt
 http://127.0.0.1:8000/docs
-9. Testar o endpoint de análise
+```
+
+---
+
+## 11. Testar o endpoint de análise
 
 Endpoint:
 
+```txt
 POST http://127.0.0.1:8000/predict
+```
 
 Exemplo de body JSON:
 
+```json
 {
   "texto": "Produto chegou atrasado e veio com defeito"
 }
+```
 
-Também é possível enviar o campo como text:
+Também é possível enviar o campo como `text`:
 
+```json
 {
   "text": "Produto chegou atrasado e veio com defeito"
 }
+```
 
 Exemplo de resposta:
 
+```json
 {
   "texto": "Produto chegou atrasado e veio com defeito",
   "sentimento": "negativo",
@@ -329,6 +490,30 @@ Exemplo de resposta:
   ],
   "created_at": "2026-05-29T16:30:19.896693+00:00"
 }
+```
+
+---
+
+## 12. Consultar histórico de análises
+
+Caso o MongoDB esteja configurado corretamente, é possível consultar as análises salvas:
+
+```txt
+GET http://127.0.0.1:8000/analyses
+```
+
+Esse endpoint retorna as últimas análises registradas no banco de dados.
+
+---
+Comandos principais:
+
+```bash
+python -m src.preprocessing
+python -m src.train_baseline
+uvicorn src.api:app --reload
+pytest -v
+```
+
 
 ## 🤝 Contribuição
 
